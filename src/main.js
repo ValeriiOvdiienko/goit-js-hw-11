@@ -1,26 +1,12 @@
 // імпорти js
 import { getImagesByQuery } from './js/pixabay-api.js';
 import {
+  createMarckup,
   createGallery,
   clearGallery,
   showLoader,
   hideLoader,
 } from './js/render-functions.js';
-// імпорт аксіос
-import axios from 'axios';
-// імпорт лайтбокс + сторюємо новий екземпляр
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
-//
-let gallery = new SimpleLightbox('.gallery a', {
-  overlay: true,
-  overlayOpacity: 0.8,
-  captions: true,
-  captionsData: 'alt',
-  captionDelay: 250,
-  captionPosition: 'bottom',
-});
-//
 // імпорт ізітост + створюємо сповіщення
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
@@ -56,22 +42,20 @@ function searchPicks(event) {
   getImagesByQuery(query)
     .then(response => {
       // додаємо перевірку чи масив із картинками не порожній
-      if (response.data.hits.length === 0) {
+      if (response.length === 0) {
         const message = `Sorry, there are no images matching your search query. Please try again!`;
         onError(message);
+        return null;
       }
-      //   повертаємо одразу масив для зручності роботи
-      else return response.data.hits;
+      return response;
     })
     .then(data => {
       hideLoader(loader);
       if (!data) return;
       //   тут будемо опрацьовувати масив і робити розмітку
-      list.insertAdjacentHTML('beforeend', createGallery(data));
-      hideLoader(loader);
-      gallery.refresh();
+      createGallery(list, data);
     })
-    .catch(error => console.log(error));
+    .catch(error => hideLoader());
 }
 // // створюємо функцію, яка за допомогою аксіос робить запит на бекенд і повертає проміс
 // function getImagesByQuery(query) {

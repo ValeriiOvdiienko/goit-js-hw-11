@@ -1,4 +1,17 @@
-export function createGallery(imageList) {
+// імпорт лайтбокс + сторюємо новий екземпляр
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+//
+let gallery = new SimpleLightbox('.gallery a', {
+  overlay: true,
+  overlayOpacity: 0.8,
+  captions: true,
+  captionsData: 'alt',
+  captionDelay: 250,
+  captionPosition: 'bottom',
+});
+//
+export function createMarckup(imageList) {
   return imageList
     .map(
       ({
@@ -29,6 +42,10 @@ export function createGallery(imageList) {
       }
     )
     .join('');
+}
+export function createGallery(container, imageList) {
+  container.insertAdjacentHTML('beforeend', createMarckup(imageList));
+  gallery.refresh();
 }
 export function clearGallery(list, form) {
   list.innerHTML = '';
