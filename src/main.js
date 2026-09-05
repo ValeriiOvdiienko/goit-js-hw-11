@@ -5,7 +5,7 @@ import {
   clearGallery,
   showLoader,
   hideLoader,
-} from './js/render-function.js';
+} from './js/render-functions.js';
 // імпорт аксіос
 import axios from 'axios';
 // імпорт лайтбокс + сторюємо новий екземпляр
