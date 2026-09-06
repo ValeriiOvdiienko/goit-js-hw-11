@@ -47,7 +47,7 @@ export function createGallery(container, imageList) {
   container.insertAdjacentHTML('beforeend', createMarckup(imageList));
   gallery.refresh();
 }
-export function clearGallery(list, form) {
+export function clearGallery(list) {
   list.innerHTML = '';
 }
 export function showLoader(loader) {

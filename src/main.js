@@ -61,7 +61,7 @@ function searchPicks(event) {
       createGallery(list, data);
     })
     .catch(error => {
-      onError(error);
+      onError(error.message);
       hideLoader(loader);
     });
 }
