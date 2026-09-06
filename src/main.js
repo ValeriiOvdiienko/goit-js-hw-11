@@ -34,6 +34,11 @@ function searchPicks(event) {
   // отримуємо лінк на інпут і в змінну присвоюємо введені в нього дані
   let input = event.target.elements[0];
   const query = input.value;
+  if (query.trim() === '') {
+    const emptyStringError = `Yoyr search query is empty`;
+    onError(emptyStringError);
+    return;
+  }
   // функція, яка робить ресет форми і очищає лист
   clearGallery(list, form);
   // до опрацювання промісу показуємо завантаження
@@ -55,7 +60,10 @@ function searchPicks(event) {
       //   тут будемо опрацьовувати масив і робити розмітку
       createGallery(list, data);
     })
-    .catch(error => hideLoader());
+    .catch(error => {
+      onError(error);
+      hideLoader(loader);
+    });
 }
 // // створюємо функцію, яка за допомогою аксіос робить запит на бекенд і повертає проміс
 // function getImagesByQuery(query) {

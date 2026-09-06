@@ -49,7 +49,6 @@ export function createGallery(container, imageList) {
 }
 export function clearGallery(list, form) {
   list.innerHTML = '';
-  form.reset();
 }
 export function showLoader(loader) {
   loader.classList.remove('hidden');
